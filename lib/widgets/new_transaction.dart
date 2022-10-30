@@ -5,7 +5,7 @@ class NewTransaction extends StatelessWidget {
   final amountController = TextEditingController();
   final Function addNewTransaction;
 
-  NewTransaction(this.addNewTransaction);
+  NewTransaction(this.addNewTransaction, {super.key});
 
   void _submitData() {
     final enteredTitle = titleController.text;
