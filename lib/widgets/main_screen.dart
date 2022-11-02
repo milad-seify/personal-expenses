@@ -12,12 +12,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransActions = [
-    Transaction(
-        id: 't1', title: 'eat pizza', amount: 12.5, date: DateTime.now()),
-    Transaction(
-        id: 't2', title: 'buy shoes', amount: 40.5, date: DateTime.now()),
-    Transaction(
-        id: 't2', title: 'buy shirt', amount: 31.5, date: DateTime.now()),
+    // Transaction(
+    //     id: 't1', title: 'eat pizza', amount: 12.5, date: DateTime.now()),
+    // Transaction(
+    //     id: 't2', title: 'buy shoes', amount: 40.5, date: DateTime.now()),
+    // Transaction(
+    //     id: 't2', title: 'buy shirt', amount: 31.5, date: DateTime.now()),
   ];
 
   void _addNewTransaction(String txTitle, double txAmount) {
@@ -31,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _startAddTransaction(BuildContext cxt) {
     showModalBottomSheet(
-      isScrollControlled: true,
+      //isScrollControlled: true,
       context: cxt,
       builder: (_) => GestureDetector(
         behavior: HitTestBehavior.opaque,
@@ -68,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-              TransactionList(_userTransActions),
+              TransactionList(userTransActionsList: _userTransActions),
             ],
           ),
         ),

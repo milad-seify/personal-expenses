@@ -8,8 +8,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
+      //  title: 'Personal Expenses',
+      theme: ThemeData(
+        primarySwatch: Colors.orange,
+        scaffoldBackgroundColor: Colors.orange[100],
+        //  colorSchemeSeed: Colors.orange,
+        colorScheme: ColorScheme(
+            primary: Colors.pink,
+            brightness: Brightness.light,
+            onPrimary: Colors.yellow,
+            secondary: Colors.purple,
+            onSecondary: Colors.tealAccent,
+            error: Colors.red,
+            onError: Colors.red.shade100,
+            background: Colors.brown,
+            onBackground: Colors.deepOrangeAccent,
+            surface: Colors.white,
+            onSurface: Colors.black45),
+      ),
       home: MyHomePage(),
     );
   }

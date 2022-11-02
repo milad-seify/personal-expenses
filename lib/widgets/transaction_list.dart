@@ -3,55 +3,72 @@ import 'package:intl/intl.dart';
 import '../models/transaction.dart';
 
 class TransactionList extends StatelessWidget {
-  final List<Transaction> userTransActions;
+  final List<Transaction> userTransActionsList;
 
-  const TransactionList(this.userTransActions, {super.key});
+  const TransactionList({super.key, required this.userTransActionsList});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding:
-          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-      child: SizedBox(
-        height: 400,
-        child: Scrollbar(
-          thickness: 15.0,
-          child: ListView.builder(
-            //reverse: true,
-            itemCount: userTransActions.length,
-            itemBuilder: (context, index) => Card(
-              elevation: 5.0,
-              child: ListTile(
-                leading: Container(
-                  padding: const EdgeInsets.all(10.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(color: Colors.purple, width: 2.0),
-                  ),
-                  child: Text(
-                    '\$${userTransActions[index].amount.toStringAsFixed(2)}',
-                    style: const TextStyle(
-                        color: Colors.purple,
+    return userTransActionsList.isEmpty
+        ? Column(
+            children: [
+              const Text(
+                'No transaction added yet',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0),
+              ),
+              const SizedBox(
+                height: 20.0,
+              ),
+              Image.asset(
+                'assets/images/waiting.png',
+                height: 200,
+                //fit: BoxFit.contain,
+              ),
+            ],
+          )
+        : SizedBox(
+            height: 400,
+            child: Scrollbar(
+              thickness: 15.0,
+              child: ListView.builder(
+                //reverse: true,
+                itemCount: userTransActionsList.length,
+                itemBuilder: (context, index) => Card(
+                  elevation: 5.0,
+                  child: ListTile(
+                    //  horizontalTitleGap: ,
+                    leading: Container(
+                      padding: const EdgeInsets.all(10.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        border: Border.all(
+                          color: Theme.of(context).primaryColor,
+                          width: 2.0,
+                        ),
+                      ),
+                      child: Text(
+                        '\$${userTransActionsList[index].amount.toStringAsFixed(2)}',
+                        style: const TextStyle(
+                            color: Colors.purpleAccent,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17.0),
+                      ),
+                    ),
+                    title: Text(
+                      userTransActionsList[index].title,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 17.0),
+                      ),
+                    ),
+                    subtitle: Text(
+                      DateFormat.yMMMEd()
+                          .add_jm()
+                          .format(userTransActionsList[index].date),
+                    ),
                   ),
-                ),
-                title: Text(
-                  userTransActions[index].title,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                subtitle: Text(
-                  DateFormat.yMMMEd()
-                      .add_jm()
-                      .format(userTransActions[index].date),
                 ),
               ),
             ),
-          ),
-        ),
-      ),
-    );
+          );
   }
 }

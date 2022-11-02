@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 
-class NewTransaction extends StatelessWidget {
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
+class NewTransaction extends StatefulWidget {
   final Function addNewTransaction;
 
   NewTransaction(this.addNewTransaction, {super.key});
+
+  @override
+  State<NewTransaction> createState() => _NewTransactionState();
+}
+
+class _NewTransactionState extends State<NewTransaction> {
+  final titleController = TextEditingController();
+
+  final amountController = TextEditingController();
 
   void _submitData() {
     final enteredTitle = titleController.text;
@@ -14,12 +21,14 @@ class NewTransaction extends StatelessWidget {
     if (enteredTitle.isEmpty || enteredAmount <= 0) {
       return;
     }
-    addNewTransaction(enteredTitle, enteredAmount);
+    widget.addNewTransaction(enteredTitle, enteredAmount);
+    Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
     return Card(
+      //color: Theme.of(context).primaryColor,
       elevation: 6.0,
       child: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -30,16 +39,15 @@ class NewTransaction extends StatelessWidget {
               decoration: const InputDecoration(labelText: 'title '),
               controller: titleController,
               onSubmitted: (_) => _submitData,
-
-              //  autofocus: true,
+              // autofocus: true,
             ),
             TextField(
               decoration: const InputDecoration(labelText: 'amount'),
               controller: amountController,
               keyboardType: TextInputType.number,
               onSubmitted: (_) => _submitData,
-              //on IOS use
-              // TextInputType.numberWithOptions(decimal: true),
+
+              //IOS use : TextInputType.numberWithOptions(decimal: true),
             ),
             TextButton(
                 onPressed: _submitData,
