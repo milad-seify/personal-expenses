@@ -49,6 +49,21 @@ class _NewTransactionState extends State<NewTransaction> {
 
               //IOS use : TextInputType.numberWithOptions(decimal: true),
             ),
+            SizedBox(
+              height: 60.0,
+              child: Row(
+                children: <Widget>[
+                  Text('Not Date Chosen!'),
+                  SizedBox(
+                    width: 20.0,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: Text('Choose Date'),
+                  )
+                ],
+              ),
+            ),
             TextButton(
                 onPressed: _submitData,
                 style: TextButton.styleFrom(

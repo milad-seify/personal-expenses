@@ -33,7 +33,11 @@ class TransactionList extends StatelessWidget {
               child: ListView.builder(
                 //reverse: true,
                 itemCount: userTransActionsList.length,
-                itemBuilder: (context, index) => Card(
+                itemBuilder: (
+                  context,
+                  index,
+                ) =>
+                    Card(
                   elevation: 6.0,
                   shape: RoundedRectangleBorder(
                     side: BorderSide(
@@ -48,6 +52,7 @@ class TransactionList extends StatelessWidget {
                     leading: Container(
                       padding: const EdgeInsets.all(10.0),
                       decoration: BoxDecoration(
+                        //shape: BoxShape.c,
                         borderRadius: BorderRadius.circular(10.0),
                         border: Border.all(
                           color: Theme.of(context).primaryColor,
