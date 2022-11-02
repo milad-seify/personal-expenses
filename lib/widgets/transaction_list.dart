@@ -34,9 +34,17 @@ class TransactionList extends StatelessWidget {
                 //reverse: true,
                 itemCount: userTransActionsList.length,
                 itemBuilder: (context, index) => Card(
-                  elevation: 5.0,
+                  elevation: 6.0,
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      color: Theme.of(context).primaryColor,
+                      width: 3.0,
+                    ),
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  margin: const EdgeInsets.symmetric(
+                      horizontal: 9.0, vertical: 5.0),
                   child: ListTile(
-                    //  horizontalTitleGap: ,
                     leading: Container(
                       padding: const EdgeInsets.all(10.0),
                       decoration: BoxDecoration(
@@ -47,7 +55,7 @@ class TransactionList extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        '\$${userTransActionsList[index].amount.toStringAsFixed(2)}',
+                        '\$${userTransActionsList[index].amount.toStringAsFixed(2).substring(0, 5)}',
                         style: const TextStyle(
                             color: Colors.purpleAccent,
                             fontWeight: FontWeight.bold,
