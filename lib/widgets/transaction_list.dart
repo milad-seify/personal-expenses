@@ -13,8 +13,8 @@ class TransactionList extends StatelessWidget {
         ? Column(
             children: [
               const Text(
-                'No transaction added yet',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0),
+                'No Transaction Added Yet',
+                style: TextStyle(fontFamily: 'OpenSans', fontSize: 25.0),
               ),
               const SizedBox(
                 height: 20.0,
