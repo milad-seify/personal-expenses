@@ -12,6 +12,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       //  title: 'Personal Expenses',
       theme: ThemeData(
+        scrollbarTheme: ScrollbarThemeData(
+            thumbColor: MaterialStateProperty.all(Colors.blue)),
         primarySwatch: Colors.orange,
         scaffoldBackgroundColor: Colors.orange[100],
         //  colorSchemeSeed: Colors.orange,

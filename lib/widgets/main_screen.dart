@@ -22,12 +22,13 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  void _addNewTransaction(String txTitle, double txAmount) {
+  void _addNewTransaction(
+      String txTitle, double txAmount, DateTime pickedDate) {
     final newTrans = Transaction(
       id: '1',
       title: txTitle,
       amount: txAmount,
-      date: DateTime.now(),
+      date: pickedDate,
     );
 
     setState(() {

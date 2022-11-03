@@ -4,8 +4,9 @@ import '../models/transaction.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> userTransActionsList;
+  final ScrollController _firstController = ScrollController();
 
-  const TransactionList({super.key, required this.userTransActionsList});
+  TransactionList({super.key, required this.userTransActionsList});
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +30,11 @@ class TransactionList extends StatelessWidget {
         : SizedBox(
             height: 400,
             child: Scrollbar(
-              thickness: 15.0,
+              controller: _firstController,
+              thumbVisibility: true,
+              thickness: 10.0,
               child: ListView.builder(
+                controller: _firstController,
                 //reverse: true,
                 itemCount: userTransActionsList.length,
                 itemBuilder: (
