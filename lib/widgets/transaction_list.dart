@@ -5,8 +5,11 @@ import '../models/transaction.dart';
 class TransactionList extends StatelessWidget {
   final List<Transaction> userTransActionsList;
   final ScrollController _firstController = ScrollController();
-
-  TransactionList({super.key, required this.userTransActionsList});
+  final Function deleteTransaction;
+  TransactionList(
+      {super.key,
+      required this.userTransActionsList,
+      required this.deleteTransaction});
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +67,7 @@ class TransactionList extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        '\$${userTransActionsList[index].amount.toStringAsFixed(2).substring(0, 5)}',
+                        '\$${userTransActionsList[index].amount < 100 ? userTransActionsList[index].amount.toStringAsFixed(2) : userTransActionsList[index].amount.toStringAsFixed(2).substring(0, 6)}',
                         style: const TextStyle(
                             color: Colors.purpleAccent,
                             fontWeight: FontWeight.bold,
@@ -81,6 +84,12 @@ class TransactionList extends StatelessWidget {
                       DateFormat.yMMMEd()
                           .add_jm()
                           .format(userTransActionsList[index].date),
+                    ),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.delete),
+                      color: Theme.of(context).errorColor,
+                      onPressed: () =>
+                          deleteTransaction(userTransActionsList[index].id),
                     ),
                   ),
                 ),

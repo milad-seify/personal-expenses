@@ -25,14 +25,19 @@ class _MyHomePageState extends State<MyHomePage> {
   void _addNewTransaction(
       String txTitle, double txAmount, DateTime pickedDate) {
     final newTrans = Transaction(
-      id: '1',
+      id: DateTime.now().microsecondsSinceEpoch.toString(),
       title: txTitle,
       amount: txAmount,
       date: pickedDate,
     );
-
     setState(() {
       _userTransActions.add(newTrans);
+    });
+  }
+
+  void _deleteTransaction(String id) {
+    setState(() {
+      _userTransActions.removeWhere((element) => element.id == id);
     });
   }
 
@@ -51,36 +56,26 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Personal Expenses'),
-          actions: <Widget>[
-            IconButton(
+        appBar:
+            AppBar(title: const Text('Personal Expenses'), actions: <Widget>[
+          IconButton(
               onPressed: () => _startAddTransaction(context),
-              icon: const Icon(
-                Icons.add,
-                color: Colors.tealAccent,
-              ),
-            )
-          ],
-        ),
+              icon: const Icon(Icons.add, color: Colors.tealAccent))
+        ]),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              SizedBox(
-                width: double.infinity,
-                child: Card(
-                  elevation: 5.0,
-                  color: Colors.amber,
-                  child: Chart(recentTransactions: _recentTransactions),
-                ),
-              ),
-              TransactionList(userTransActionsList: _userTransActions),
+              Chart(recentTransactions: _recentTransactions),
+              TransactionList(
+                  userTransActionsList: _userTransActions,
+                  deleteTransaction: _deleteTransaction),
             ],
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton(
+          //Todo : keyboard
           onPressed: () => _startAddTransaction(context),
           child: const Icon(Icons.add),
         ));
