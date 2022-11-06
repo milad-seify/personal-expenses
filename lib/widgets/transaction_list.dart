@@ -45,7 +45,8 @@ class TransactionList extends StatelessWidget {
                   index,
                 ) =>
                     Card(
-                  elevation: 6.0,
+                  color: Colors.yellow[100],
+                  elevation: 7.0,
                   shape: RoundedRectangleBorder(
                     side: BorderSide(
                       color: Theme.of(context).primaryColor,

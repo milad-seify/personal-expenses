@@ -50,7 +50,7 @@ class _NewTransactionState extends State<NewTransaction> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.orange[100],
+      color: const Color(0xff756752),
       child: Container(
         decoration: BoxDecoration(
             color: Colors.orange[300],
@@ -63,41 +63,26 @@ class _NewTransactionState extends State<NewTransaction> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
-              TextField(
-                decoration: InputDecoration(
+              textField(
+                  input: _titleController,
                   labelText: 'title',
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                    borderSide: BorderSide(width: 5.0, color: Colors.red),
-                  ),
-                ),
-                controller: _titleController,
-                onSubmitted: (_) => _submitData,
-                // autofocus: true,
-              ),
+                  keyboardType: TextInputType.name),
               const Divider(
                 height: 5.0,
               ),
-              TextField(
-                decoration: InputDecoration(
+              textField(
+                  input: _amountController,
                   labelText: 'amount',
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 5.0, color: Colors.cyan),
-                      borderRadius: BorderRadius.circular(20.0)),
-                ),
-                controller: _amountController,
-                keyboardType: TextInputType.number,
-                onSubmitted: (_) => _submitData,
-
-                //IOS use : TextInputType.numberWithOptions(decimal: true),
-              ),
+                  keyboardType: TextInputType.number),
               SizedBox(
                 height: 60.0,
                 child: Row(
                   children: <Widget>[
-                    Text(_selectedDate == null
-                        ? 'Not Date Chosen!'
-                        : 'Picked Date: ${DateFormat.yMd().format(_selectedDate)}'),
+                    Text(
+                      _selectedDate == null
+                          ? 'Not Date Chosen!'
+                          : 'Picked Date: ${DateFormat.yMd().format(_selectedDate)}',
+                    ),
                     const SizedBox(
                       width: 20.0,
                     ),
@@ -122,6 +107,26 @@ class _NewTransactionState extends State<NewTransaction> {
           ),
         ),
       ),
+    );
+  }
+
+  TextField textField(
+      {required String labelText,
+      required TextEditingController input,
+      required TextInputType keyboardType}) {
+    return TextField(
+      decoration: InputDecoration(
+        labelText: labelText,
+        enabledBorder: OutlineInputBorder(
+            borderSide:
+                const BorderSide(width: 5.0, color: Colors.deepOrangeAccent),
+            borderRadius: BorderRadius.circular(30.0)),
+      ),
+      controller: input,
+      keyboardType: keyboardType,
+      onSubmitted: (_) => _submitData,
+
+      //IOS use : TextInputType.numberWithOptions(decimal: true),
     );
   }
 }
