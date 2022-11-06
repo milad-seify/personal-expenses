@@ -51,6 +51,7 @@ class _NewTransactionState extends State<NewTransaction> {
   Widget build(BuildContext context) {
     return SizedBox(
       child: Padding(
+        // padding : MediaQuery.of(context).viewInsets,
         padding:
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: Column(
