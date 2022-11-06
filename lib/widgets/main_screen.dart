@@ -43,7 +43,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _startAddTransaction(BuildContext cxt) {
     showModalBottomSheet(
-      //isScrollControlled: true,
+      backgroundColor: Colors.orange[300],
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
+      isScrollControlled: true,
       context: cxt,
       builder: (_) => GestureDetector(
         behavior: HitTestBehavior.opaque,

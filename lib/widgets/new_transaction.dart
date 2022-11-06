@@ -49,62 +49,56 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: const Color(0xff756752),
-      child: Container(
-        decoration: BoxDecoration(
-            color: Colors.orange[300],
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(30.0),
-              topRight: Radius.circular(30.0),
-            )),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[
-              textField(
-                  input: _titleController,
-                  labelText: 'title',
-                  keyboardType: TextInputType.name),
-              const Divider(
-                height: 5.0,
-              ),
-              textField(
-                  input: _amountController,
-                  labelText: 'amount',
-                  keyboardType: TextInputType.number),
-              SizedBox(
-                height: 60.0,
-                child: Row(
-                  children: <Widget>[
-                    Text(
-                      _selectedDate == null
-                          ? 'Not Date Chosen!'
-                          : 'Picked Date: ${DateFormat.yMd().format(_selectedDate)}',
-                    ),
-                    const SizedBox(
-                      width: 20.0,
-                    ),
-                    ElevatedButton(
-                      onPressed: _presentDatePicker,
-                      child: const Text('Choose Date'),
-                    )
-                  ],
-                ),
-              ),
-              TextButton(
-                  onPressed: _submitData,
-                  style: TextButton.styleFrom(
-                    elevation: 5.0,
-                    backgroundColor: Colors.purple,
+    return SizedBox(
+      child: Padding(
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          // crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>[
+            textField(
+                input: _titleController,
+                labelText: '  title',
+                keyboardType: TextInputType.name),
+            const Divider(
+              height: 5.0,
+            ),
+            textField(
+                input: _amountController,
+                labelText: '  amount',
+                keyboardType: TextInputType.number),
+            SizedBox(
+              height: 60.0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    _selectedDate == null
+                        ? 'Not Date Chosen!'
+                        : 'Picked Date: ${DateFormat.yMd().format(_selectedDate)}',
                   ),
-                  child: const Text(
-                    'Add Transaction',
-                    style: TextStyle(color: Colors.yellow),
-                  ))
-            ],
-          ),
+                  const SizedBox(
+                    width: 20.0,
+                  ),
+                  ElevatedButton(
+                    onPressed: _presentDatePicker,
+                    child: const Text('Choose Date'),
+                  )
+                ],
+              ),
+            ),
+            TextButton(
+                onPressed: _submitData,
+                style: TextButton.styleFrom(
+                  elevation: 5.0,
+                  backgroundColor: Colors.purple,
+                ),
+                child: const Text(
+                  'Add Transaction',
+                  style: TextStyle(color: Colors.yellow),
+                ))
+          ],
         ),
       ),
     );
@@ -116,11 +110,13 @@ class _NewTransactionState extends State<NewTransaction> {
       required TextInputType keyboardType}) {
     return TextField(
       decoration: InputDecoration(
-        labelText: labelText,
+        hintText: labelText,
+        // labelText: labelText,
         enabledBorder: OutlineInputBorder(
-            borderSide:
-                const BorderSide(width: 5.0, color: Colors.deepOrangeAccent),
-            borderRadius: BorderRadius.circular(30.0)),
+          borderSide:
+              const BorderSide(width: 5.0, color: Colors.deepOrangeAccent),
+          borderRadius: BorderRadius.circular(27.0),
+        ),
       ),
       controller: input,
       keyboardType: keyboardType,
