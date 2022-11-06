@@ -49,56 +49,77 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      //color: Theme.of(context).primaryColor,
-      elevation: 6.0,
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
-            TextField(
-              decoration: const InputDecoration(labelText: 'title '),
-              controller: _titleController,
-              onSubmitted: (_) => _submitData,
-              // autofocus: true,
-            ),
-            TextField(
-              decoration: const InputDecoration(labelText: 'amount'),
-              controller: _amountController,
-              keyboardType: TextInputType.number,
-              onSubmitted: (_) => _submitData,
-
-              //IOS use : TextInputType.numberWithOptions(decimal: true),
-            ),
-            SizedBox(
-              height: 60.0,
-              child: Row(
-                children: <Widget>[
-                  Text(_selectedDate == null
-                      ? 'Not Date Chosen!'
-                      : 'Picked Date: ${DateFormat.yMd().format(_selectedDate)}'),
-                  SizedBox(
-                    width: 20.0,
+    return Container(
+      color: Colors.orange[100],
+      child: Container(
+        decoration: BoxDecoration(
+            color: Colors.orange[300],
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(30.0),
+              topRight: Radius.circular(30.0),
+            )),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              TextField(
+                decoration: InputDecoration(
+                  labelText: 'title',
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: BorderSide(width: 5.0, color: Colors.red),
                   ),
-                  ElevatedButton(
-                    onPressed: _presentDatePicker,
-                    child: Text('Choose Date'),
-                  )
-                ],
-              ),
-            ),
-            TextButton(
-                onPressed: _submitData,
-                style: TextButton.styleFrom(
-                  elevation: 5.0,
-                  backgroundColor: Colors.purple,
                 ),
-                child: const Text(
-                  'Transaction',
-                  style: TextStyle(color: Colors.black),
-                ))
-          ],
+                controller: _titleController,
+                onSubmitted: (_) => _submitData,
+                // autofocus: true,
+              ),
+              const Divider(
+                height: 5.0,
+              ),
+              TextField(
+                decoration: InputDecoration(
+                  labelText: 'amount',
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(width: 5.0, color: Colors.cyan),
+                      borderRadius: BorderRadius.circular(20.0)),
+                ),
+                controller: _amountController,
+                keyboardType: TextInputType.number,
+                onSubmitted: (_) => _submitData,
+
+                //IOS use : TextInputType.numberWithOptions(decimal: true),
+              ),
+              SizedBox(
+                height: 60.0,
+                child: Row(
+                  children: <Widget>[
+                    Text(_selectedDate == null
+                        ? 'Not Date Chosen!'
+                        : 'Picked Date: ${DateFormat.yMd().format(_selectedDate)}'),
+                    const SizedBox(
+                      width: 20.0,
+                    ),
+                    ElevatedButton(
+                      onPressed: _presentDatePicker,
+                      child: const Text('Choose Date'),
+                    )
+                  ],
+                ),
+              ),
+              TextButton(
+                  onPressed: _submitData,
+                  style: TextButton.styleFrom(
+                    elevation: 5.0,
+                    backgroundColor: Colors.purple,
+                  ),
+                  child: const Text(
+                    'Add Transaction',
+                    style: TextStyle(color: Colors.yellow),
+                  ))
+            ],
+          ),
         ),
       ),
     );
