@@ -78,7 +78,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton(
-          //Todo : keyboard
           onPressed: () => _startAddTransaction(context),
           child: const Icon(Icons.add),
         ));
