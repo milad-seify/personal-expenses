@@ -38,10 +38,10 @@ class Chart extends StatelessWidget {
   Widget build(BuildContext context) {
     return recentTransactions.isEmpty
         ? Divider(
-            color: Colors.yellow.shade300,
+            color: Colors.red.shade300,
             endIndent: 40.0,
             indent: 40.0,
-            thickness: 20.0,
+            thickness: 10.0,
           )
         : Card(
             elevation: 5.0,
