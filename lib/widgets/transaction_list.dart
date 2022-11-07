@@ -34,7 +34,7 @@ class TransactionList extends StatelessWidget {
             height: 400,
             child: Scrollbar(
               controller: _firstController,
-              thumbVisibility: true,
+              // thumbVisibility: true,
               thickness: 10.0,
               child: ListView.builder(
                 controller: _firstController,

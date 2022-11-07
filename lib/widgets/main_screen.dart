@@ -12,7 +12,118 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> _userTransActions = [];
+  final List<Transaction> _userTransActions = [
+    Transaction(
+        id: DateTime.now().toString(),
+        title: "title",
+        amount: 12,
+        date: DateTime.now()),
+    Transaction(
+        id: DateTime.now().toString(),
+        title: "title1",
+        amount: 12,
+        date: DateTime.now()),
+    Transaction(
+        id: DateTime.now().toString(),
+        title: "title2",
+        amount: 12,
+        date: DateTime.now()),
+    Transaction(
+        id: DateTime.now().toString(),
+        title: "title3",
+        amount: 12,
+        date: DateTime.now()),
+    Transaction(
+        id: DateTime.now().toString(),
+        title: "title4",
+        amount: 12,
+        date: DateTime.now()),
+    Transaction(
+        id: DateTime.now().toString(),
+        title: "title5",
+        amount: 12,
+        date: DateTime.now()),
+    Transaction(
+        id: DateTime.now().toString(),
+        title: "title6",
+        amount: 12,
+        date: DateTime.now()),
+    Transaction(
+        id: DateTime.now().toString(),
+        title: "title7",
+        amount: 12,
+        date: DateTime.now()),
+    Transaction(
+        id: DateTime.now().toString(),
+        title: "title8",
+        amount: 12,
+        date: DateTime.now()),
+    Transaction(
+        id: DateTime.now().toString(),
+        title: "title9",
+        amount: 12,
+        date: DateTime.now()),
+    Transaction(
+        id: DateTime.now().toString(),
+        title: "title",
+        amount: 12,
+        date: DateTime.now()),
+    Transaction(
+        id: DateTime.now().toString(),
+        title: "title",
+        amount: 12,
+        date: DateTime.now()),
+    Transaction(
+        id: DateTime.now().toString(),
+        title: "title",
+        amount: 12,
+        date: DateTime.now()),
+    Transaction(
+        id: DateTime.now().toString(),
+        title: "title",
+        amount: 12,
+        date: DateTime.now()),
+    Transaction(
+        id: DateTime.now().toString(),
+        title: "title",
+        amount: 12,
+        date: DateTime.now()),
+    Transaction(
+        id: DateTime.now().toString(),
+        title: "title",
+        amount: 12,
+        date: DateTime.now()),
+    Transaction(
+        id: DateTime.now().toString(),
+        title: "title",
+        amount: 12,
+        date: DateTime.now()),
+    Transaction(
+        id: DateTime.now().toString(),
+        title: "title",
+        amount: 12,
+        date: DateTime.now()),
+    Transaction(
+        id: DateTime.now().toString(),
+        title: "title",
+        amount: 12,
+        date: DateTime.now()),
+    Transaction(
+        id: DateTime.now().toString(),
+        title: "title",
+        amount: 12,
+        date: DateTime.now()),
+    Transaction(
+        id: DateTime.now().toString(),
+        title: "title",
+        amount: 12,
+        date: DateTime.now()),
+    Transaction(
+        id: DateTime.now().toString(),
+        title: "titlend",
+        amount: 12,
+        date: DateTime.now())
+  ];
 
   List<Transaction> get _recentTransactions {
     return _userTransActions.where((element) {
@@ -58,21 +169,33 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final appear =
+        AppBar(title: const Text('Personal Expenses'), actions: <Widget>[
+      IconButton(
+          onPressed: () => _startAddTransaction(context),
+          icon: const Icon(Icons.add, color: Colors.tealAccent))
+    ]);
     return Scaffold(
-        appBar:
-            AppBar(title: const Text('Personal Expenses'), actions: <Widget>[
-          IconButton(
-              onPressed: () => _startAddTransaction(context),
-              icon: const Icon(Icons.add, color: Colors.tealAccent))
-        ]),
+        appBar: appear,
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Chart(recentTransactions: _recentTransactions),
-              TransactionList(
-                  userTransActionsList: _userTransActions,
-                  deleteTransaction: _deleteTransaction),
+              SizedBox(
+                  height: (MediaQuery.of(context).size.height -
+                          appear.preferredSize.height -
+                          MediaQuery.of(context).padding.top) *
+                      0.3,
+                  child: Chart(recentTransactions: _recentTransactions)),
+              SizedBox(
+                height: (MediaQuery.of(context).size.height -
+                        appear.preferredSize.height -
+                        MediaQuery.of(context).padding.top) *
+                    0.7,
+                child: TransactionList(
+                    userTransActionsList: _userTransActions,
+                    deleteTransaction: _deleteTransaction),
+              ),
             ],
           ),
         ),
