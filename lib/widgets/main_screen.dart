@@ -170,47 +170,57 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final appear =
+    final isLandScape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+    final appBar =
         AppBar(title: const Text('Personal Expenses'), actions: <Widget>[
       IconButton(
           onPressed: () => _startAddTransaction(context),
           icon: const Icon(Icons.add, color: Colors.tealAccent))
     ]);
+    final transactionList = SizedBox(
+      height: (MediaQuery.of(context).size.height -
+              appBar.preferredSize.height -
+              MediaQuery.of(context).padding.top) *
+          0.7,
+      child: TransactionList(
+          userTransActionsList: _userTransActions,
+          deleteTransaction: _deleteTransaction),
+    );
     return Scaffold(
-        appBar: appear,
+        appBar: appBar,
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('ChartBar'),
-                  Switch(
-                      value: _checkChart,
-                      onChanged: (val) {
-                        setState(() {
-                          _checkChart = val;
-                        });
-                      }),
-                ],
-              ),
-              _checkChart == true
-                  ? SizedBox(
-                      height: (MediaQuery.of(context).size.height -
-                              appear.preferredSize.height -
-                              MediaQuery.of(context).padding.top) *
-                          0.7,
-                      child: Chart(recentTransactions: _recentTransactions))
-                  : SizedBox(
-                      height: (MediaQuery.of(context).size.height -
-                              appear.preferredSize.height -
-                              MediaQuery.of(context).padding.top) *
-                          0.7,
-                      child: TransactionList(
-                          userTransActionsList: _userTransActions,
-                          deleteTransaction: _deleteTransaction),
-                    ),
+              if (isLandScape)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('ChartBar'),
+                    Switch(
+                        value: _checkChart,
+                        onChanged: (val) {
+                          setState(() {
+                            _checkChart = val;
+                          });
+                        }),
+                  ],
+                ),
+              if (!isLandScape)
+                ChartView(
+                    appBar: appBar,
+                    recentTransactions: _recentTransactions,
+                    height: 0.3),
+              if (!isLandScape) transactionList,
+              if (isLandScape)
+                _checkChart
+                    ? ChartView(
+                        appBar: appBar,
+                        recentTransactions: _recentTransactions,
+                        height: 0.7,
+                      )
+                    : transactionList,
             ],
           ),
         ),
@@ -219,5 +229,28 @@ class _MyHomePageState extends State<MyHomePage> {
           onPressed: () => _startAddTransaction(context),
           child: const Icon(Icons.add),
         ));
+  }
+}
+
+class ChartView extends StatelessWidget {
+  const ChartView(
+      {Key? key,
+      required this.appBar,
+      required List<Transaction> recentTransactions,
+      required this.height})
+      : _recentTransactions = recentTransactions,
+        super(key: key);
+
+  final AppBar appBar;
+  final List<Transaction> _recentTransactions;
+  final double height;
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+        height: (MediaQuery.of(context).size.height -
+                appBar.preferredSize.height -
+                MediaQuery.of(context).padding.top) *
+            height,
+        child: Chart(recentTransactions: _recentTransactions));
   }
 }

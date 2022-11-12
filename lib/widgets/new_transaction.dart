@@ -49,57 +49,60 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: Padding(
-        // padding : MediaQuery.of(context).viewInsets,
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          // crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
-            textField(
-                input: _titleController,
-                labelText: '  title',
-                keyboardType: TextInputType.name),
-            const Divider(
-              height: 5.0,
-            ),
-            textField(
-                input: _amountController,
-                labelText: '  amount',
-                keyboardType: TextInputType.number),
-            SizedBox(
-              height: 60.0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    _selectedDate == null
-                        ? 'Not Date Chosen!'
-                        : 'Picked Date: ${DateFormat.yMd().format(_selectedDate)}',
-                  ),
-                  const SizedBox(
-                    width: 20.0,
-                  ),
-                  ElevatedButton(
-                    onPressed: _presentDatePicker,
-                    child: const Text('Choose Date'),
-                  )
-                ],
+    return SingleChildScrollView(
+      child: SizedBox(
+        child: Padding(
+          padding: EdgeInsets.only(
+              top: 5.0,
+              left: 5.0,
+              right: 5.0,
+              bottom: MediaQuery.of(context).viewInsets.bottom + 10),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              textField(
+                  input: _titleController,
+                  labelText: '  title',
+                  keyboardType: TextInputType.name),
+              const Divider(
+                height: 5.0,
               ),
-            ),
-            TextButton(
-                onPressed: _submitData,
-                style: TextButton.styleFrom(
-                  elevation: 5.0,
-                  backgroundColor: Colors.purple,
+              textField(
+                  input: _amountController,
+                  labelText: '  amount',
+                  keyboardType: TextInputType.number),
+              SizedBox(
+                height: 60.0,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      _selectedDate == null
+                          ? 'Not Date Chosen!'
+                          : 'Picked Date: ${DateFormat.yMd().format(_selectedDate)}',
+                    ),
+                    const SizedBox(
+                      width: 20.0,
+                    ),
+                    ElevatedButton(
+                      onPressed: _presentDatePicker,
+                      child: const Text('Choose Date'),
+                    )
+                  ],
                 ),
-                child: const Text(
-                  'Add Transaction',
-                  style: TextStyle(color: Colors.yellow),
-                ))
-          ],
+              ),
+              TextButton(
+                  onPressed: _submitData,
+                  style: TextButton.styleFrom(
+                    elevation: 5.0,
+                    backgroundColor: Colors.purple,
+                  ),
+                  child: const Text(
+                    'Add Transaction',
+                    style: TextStyle(color: Colors.yellow),
+                  ))
+            ],
+          ),
         ),
       ),
     );
