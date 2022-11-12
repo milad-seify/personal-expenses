@@ -1,3 +1,5 @@
+import "dart:io";
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'widgets/main_screen.dart';
 
@@ -42,3 +44,13 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+// Platform.isIOS
+//         ? CupertinoApp(
+//             theme: CupertinoThemeData(
+              
+//               primaryColor: Colors.orange,
+//               scaffoldBackgroundColor: Colors.orange[100],
+//             ),
+//             home: const MyHomePage(),
+//           )

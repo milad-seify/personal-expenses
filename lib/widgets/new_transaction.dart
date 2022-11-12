@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../widgets/adaptive_button.dart';
+
 class NewTransaction extends StatefulWidget {
   final Function addNewTransaction;
 
@@ -72,6 +74,7 @@ class _NewTransactionState extends State<NewTransaction> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
+              //CupertinoTextField(),
               textField(
                   input: _titleController,
                   labelText: '  title',
@@ -96,10 +99,8 @@ class _NewTransactionState extends State<NewTransaction> {
                     const SizedBox(
                       width: 20.0,
                     ),
-                    ElevatedButton(
-                      onPressed: _presentDatePicker,
-                      child: const Text('Choose Date'),
-                    ),
+                    AdaptiveFlatButton(
+                        title: "Choose Data", handler: _presentDatePicker),
                     const SizedBox(
                       width: 40.0,
                     ),

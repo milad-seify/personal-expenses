@@ -182,6 +182,7 @@ class _MyHomePageState extends State<MyHomePage> {
           onPressed: () => _startAddTransaction(context),
           icon: const Icon(Icons.add, color: Colors.tealAccent))
     ]);
+    //PreferredSizeWidget
     final appBarIos = CupertinoNavigationBar(
       middle: const Text('Personal Expenses'),
       trailing: Row(
@@ -203,41 +204,46 @@ class _MyHomePageState extends State<MyHomePage> {
           userTransActionsList: _userTransActions,
           deleteTransaction: _deleteTransaction),
     );
-    final bodyPage = SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          if (isLandScape)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text('ChartBar'),
-                // use adaptive for platform choose
-                Switch.adaptive(
-                    //activeColor: Theme.of(context).accentColor,
-                    value: _checkChart,
-                    onChanged: (val) {
-                      setState(() {
-                        _checkChart = val;
-                      });
-                    }),
-              ],
-            ),
-          if (!isLandScape)
-            ChartView(
-                appBarAndroid: appBarAndroid,
-                recentTransactions: _recentTransactions,
-                height: 0.3),
-          if (!isLandScape) transactionList,
-          if (isLandScape)
-            _checkChart
-                ? ChartView(
-                    appBarAndroid: appBarAndroid,
-                    recentTransactions: _recentTransactions,
-                    height: 0.7,
-                  )
-                : transactionList,
-        ],
+    final bodyPage = SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            if (isLandScape)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'ChartBar',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  // use adaptive for platform choose
+                  Switch.adaptive(
+                      //activeColor: Theme.of(context).accentColor,
+                      value: _checkChart,
+                      onChanged: (val) {
+                        setState(() {
+                          _checkChart = val;
+                        });
+                      }),
+                ],
+              ),
+            if (!isLandScape)
+              ChartView(
+                  appBarAndroid: appBarAndroid,
+                  recentTransactions: _recentTransactions,
+                  height: 0.3),
+            if (!isLandScape) transactionList,
+            if (isLandScape)
+              _checkChart
+                  ? ChartView(
+                      appBarAndroid: appBarAndroid,
+                      recentTransactions: _recentTransactions,
+                      height: 0.7,
+                    )
+                  : transactionList,
+          ],
+        ),
       ),
     );
     return Platform.isIOS
