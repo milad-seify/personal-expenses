@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'widgets/main_screen.dart';
 
 void main() {
@@ -20,7 +19,9 @@ class MyApp extends StatelessWidget {
       //  title: 'Personal Expenses',
       theme: ThemeData(
         scrollbarTheme: ScrollbarThemeData(
-            thumbColor: MaterialStateProperty.all(Colors.blue)),
+          thumbColor: MaterialStateProperty.all(Colors.yellow[900]),
+          radius: const Radius.circular(30.0),
+        ),
         primarySwatch: Colors.orange,
         scaffoldBackgroundColor: Colors.orange[100],
         //  colorSchemeSeed: Colors.orange,

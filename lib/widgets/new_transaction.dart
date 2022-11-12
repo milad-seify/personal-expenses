@@ -49,6 +49,18 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
+    final isLandScape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+    final txtBtn = TextButton(
+        onPressed: _submitData,
+        style: TextButton.styleFrom(
+          elevation: 5.0,
+          backgroundColor: Colors.purple,
+        ),
+        child: const Text(
+          'Add Transaction',
+          style: TextStyle(color: Colors.yellow),
+        ));
     return SingleChildScrollView(
       child: SizedBox(
         child: Padding(
@@ -87,20 +99,15 @@ class _NewTransactionState extends State<NewTransaction> {
                     ElevatedButton(
                       onPressed: _presentDatePicker,
                       child: const Text('Choose Date'),
-                    )
+                    ),
+                    const SizedBox(
+                      width: 40.0,
+                    ),
+                    if (isLandScape) txtBtn,
                   ],
                 ),
               ),
-              TextButton(
-                  onPressed: _submitData,
-                  style: TextButton.styleFrom(
-                    elevation: 5.0,
-                    backgroundColor: Colors.purple,
-                  ),
-                  child: const Text(
-                    'Add Transaction',
-                    style: TextStyle(color: Colors.yellow),
-                  ))
+              if (!isLandScape) txtBtn,
             ],
           ),
         ),
