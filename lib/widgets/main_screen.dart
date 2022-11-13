@@ -17,118 +17,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool _checkChart = false;
-  final List<Transaction> _userTransActions = [
-    Transaction(
-        id: DateTime.now().toString(),
-        title: "title",
-        amount: 12,
-        date: DateTime.now()),
-    Transaction(
-        id: DateTime.now().toString(),
-        title: "title1",
-        amount: 12,
-        date: DateTime.now()),
-    Transaction(
-        id: DateTime.now().toString(),
-        title: "title2",
-        amount: 12,
-        date: DateTime.now()),
-    Transaction(
-        id: DateTime.now().toString(),
-        title: "title3",
-        amount: 12,
-        date: DateTime.now()),
-    Transaction(
-        id: DateTime.now().toString(),
-        title: "title4",
-        amount: 12,
-        date: DateTime.now()),
-    Transaction(
-        id: DateTime.now().toString(),
-        title: "title5",
-        amount: 12,
-        date: DateTime.now()),
-    Transaction(
-        id: DateTime.now().toString(),
-        title: "title6",
-        amount: 12,
-        date: DateTime.now()),
-    Transaction(
-        id: DateTime.now().toString(),
-        title: "title7",
-        amount: 12,
-        date: DateTime.now()),
-    Transaction(
-        id: DateTime.now().toString(),
-        title: "title8",
-        amount: 12,
-        date: DateTime.now()),
-    Transaction(
-        id: DateTime.now().toString(),
-        title: "title9",
-        amount: 12,
-        date: DateTime.now()),
-    Transaction(
-        id: DateTime.now().toString(),
-        title: "title",
-        amount: 12,
-        date: DateTime.now()),
-    Transaction(
-        id: DateTime.now().toString(),
-        title: "title",
-        amount: 12,
-        date: DateTime.now()),
-    Transaction(
-        id: DateTime.now().toString(),
-        title: "title",
-        amount: 12,
-        date: DateTime.now()),
-    Transaction(
-        id: DateTime.now().toString(),
-        title: "title",
-        amount: 12,
-        date: DateTime.now()),
-    Transaction(
-        id: DateTime.now().toString(),
-        title: "title",
-        amount: 12,
-        date: DateTime.now()),
-    Transaction(
-        id: DateTime.now().toString(),
-        title: "title",
-        amount: 12,
-        date: DateTime.now()),
-    Transaction(
-        id: DateTime.now().toString(),
-        title: "title",
-        amount: 12,
-        date: DateTime.now()),
-    Transaction(
-        id: DateTime.now().toString(),
-        title: "title",
-        amount: 12,
-        date: DateTime.now()),
-    Transaction(
-        id: DateTime.now().toString(),
-        title: "title",
-        amount: 12,
-        date: DateTime.now()),
-    Transaction(
-        id: DateTime.now().toString(),
-        title: "title",
-        amount: 12,
-        date: DateTime.now()),
-    Transaction(
-        id: DateTime.now().toString(),
-        title: "title",
-        amount: 12,
-        date: DateTime.now()),
-    Transaction(
-        id: DateTime.now().toString(),
-        title: "title-end",
-        amount: 12,
-        date: DateTime.now())
-  ];
+  final List<Transaction> _userTransActions = [];
 
   List<Transaction> get _recentTransactions {
     return _userTransActions.where((element) {
@@ -176,28 +65,28 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isLandScape = mediaQuery.orientation == Orientation.landscape;
-    final appBarAndroid =
-        AppBar(title: const Text('Personal Expenses'), actions: <Widget>[
-      IconButton(
-          onPressed: () => _startAddTransaction(context),
-          icon: const Icon(Icons.add, color: Colors.tealAccent))
-    ]);
-    //PreferredSizeWidget
-    final appBarIos = CupertinoNavigationBar(
-      middle: const Text('Personal Expenses'),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          GestureDetector(
-            onTap: () => _startAddTransaction(context),
-            child: const Icon(CupertinoIcons.add),
-          ),
-        ],
-      ),
-    );
+    final PreferredSizeWidget appBar = Platform.isIOS
+        ? CupertinoNavigationBar(
+            middle: const Text('Personal Expenses'),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                GestureDetector(
+                  onTap: () => _startAddTransaction(context),
+                  child: const Icon(CupertinoIcons.add),
+                ),
+              ],
+            ),
+          ) as PreferredSizeWidget
+        : AppBar(title: const Text('Personal Expenses'), actions: <Widget>[
+            IconButton(
+              onPressed: () => _startAddTransaction(context),
+              icon: const Icon(Icons.add, color: Colors.tealAccent),
+            )
+          ]);
     final transactionList = SizedBox(
       height: (mediaQuery.size.height -
-              appBarAndroid.preferredSize.height -
+              appBar.preferredSize.height -
               mediaQuery.padding.top) *
           0.7,
       child: TransactionList(
@@ -230,14 +119,14 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             if (!isLandScape)
               ChartView(
-                  appBarAndroid: appBarAndroid,
+                  appBar: appBar as AppBar,
                   recentTransactions: _recentTransactions,
                   height: 0.3),
             if (!isLandScape) transactionList,
             if (isLandScape)
               _checkChart
                   ? ChartView(
-                      appBarAndroid: appBarAndroid,
+                      appBar: appBar as AppBar,
                       recentTransactions: _recentTransactions,
                       height: 0.7,
                     )
@@ -248,11 +137,11 @@ class _MyHomePageState extends State<MyHomePage> {
     );
     return Platform.isIOS
         ? CupertinoPageScaffold(
-            navigationBar: appBarIos,
+            navigationBar: appBar as ObstructingPreferredSizeWidget,
             child: bodyPage,
           )
         : Scaffold(
-            appBar: appBarAndroid,
+            appBar: appBar,
             body: bodyPage,
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
@@ -268,12 +157,12 @@ class _MyHomePageState extends State<MyHomePage> {
 class ChartView extends StatelessWidget {
   const ChartView(
       {Key? key,
-      required this.appBarAndroid,
+      required this.appBar,
       required List<Transaction> recentTransactions,
       required this.height})
       : _recentTransactions = recentTransactions,
         super(key: key);
-  final AppBar appBarAndroid;
+  final AppBar appBar;
   final List<Transaction> _recentTransactions;
   final double height;
   @override
@@ -281,7 +170,7 @@ class ChartView extends StatelessWidget {
     final mediaQuery = MediaQuery.of(context);
     return SizedBox(
         height: (mediaQuery.size.height -
-                appBarAndroid.preferredSize.height -
+                appBar.preferredSize.height -
                 mediaQuery.padding.top) *
             height,
         child: Chart(recentTransactions: _recentTransactions));

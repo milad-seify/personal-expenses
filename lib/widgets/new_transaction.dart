@@ -138,3 +138,24 @@ class _NewTransactionState extends State<NewTransaction> {
     );
   }
 }
+
+
+
+
+
+  // void _showDialog(Widget child) {
+  //   showCupertinoModalPopup<void>(
+  //       context: context,
+  //       builder: (BuildContext context) => Container(
+  //             height: 200,
+  //             padding: const EdgeInsets.only(top: 5.0),
+  //             margin: EdgeInsets.only(
+  //               bottom: MediaQuery.of(context).viewInsets.bottom,
+  //             ),
+  //             color: CupertinoColors.systemBackground.resolveFrom(context),
+  //             child: SafeArea(
+  //               top: false,
+  //               child: child,
+  //             ),
+  //           ));
+  // }
