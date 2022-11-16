@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/transaction.dart';
-import './cards.dart';
+import 'transaction_item.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> userTransActionsList;
@@ -47,10 +47,9 @@ class TransactionList extends StatelessWidget {
                   context,
                   index,
                 ) =>
-                    CardListTIle(
-                  userTransActionsList: userTransActionsList,
+                    TransactionItem(
+                  userTransAction: userTransActionsList[index],
                   deleteTransaction: deleteTransaction,
-                  index: index,
                 ),
               ),
             ),

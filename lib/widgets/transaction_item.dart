@@ -3,17 +3,16 @@ import 'package:intl/intl.dart';
 
 import '../models/transaction.dart';
 
-class CardListTIle extends StatelessWidget {
-  const CardListTIle({
+class TransactionItem extends StatelessWidget {
+  const TransactionItem({
     Key? key,
-    required this.userTransActionsList,
+    required this.userTransAction,
     required this.deleteTransaction,
-    required this.index,
   }) : super(key: key);
 
-  final List<Transaction> userTransActionsList;
+  final Transaction userTransAction;
   final Function deleteTransaction;
-  final int index;
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -39,7 +38,7 @@ class CardListTIle extends StatelessWidget {
             ),
           ),
           child: Text(
-            '\$${userTransActionsList[index].amount < 100 ? userTransActionsList[index].amount.toStringAsFixed(2) : userTransActionsList[index].amount.toStringAsFixed(2).substring(0, 6)}',
+            '\$${userTransAction.amount < 100 ? userTransAction.amount.toStringAsFixed(2) : userTransAction.amount.toStringAsFixed(2).substring(0, 6)}',
             style: const TextStyle(
                 color: Colors.purpleAccent,
                 fontWeight: FontWeight.bold,
@@ -47,25 +46,23 @@ class CardListTIle extends StatelessWidget {
           ),
         ),
         title: Text(
-          userTransActionsList[index].title,
+          userTransAction.title,
           style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),
         subtitle: Text(
-          DateFormat.yMMMEd().add_jm().format(userTransActionsList[index].date),
+          DateFormat.yMMMEd().add_jm().format(userTransAction.date),
         ),
         trailing: MediaQuery.of(context).size.width > 460
             ? TextButton.icon(
-                onPressed: () =>
-                    deleteTransaction(userTransActionsList[index].id),
+                onPressed: () => deleteTransaction(userTransAction.id),
                 icon: const Icon(Icons.delete),
                 label: const Text('Delete'))
             : IconButton(
                 icon: const Icon(Icons.delete),
                 color: Theme.of(context).errorColor,
-                onPressed: () =>
-                    deleteTransaction(userTransActionsList[index].id),
+                onPressed: () => deleteTransaction(userTransAction.id),
               ),
       ),
     );

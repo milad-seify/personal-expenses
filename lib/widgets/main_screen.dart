@@ -17,7 +17,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool _checkChart = false;
-  final List<Transaction> _userTransActions = [];
+  final List<Transaction> _userTransActions = [
+    Transaction(id: 'id', title: 'title', amount: 5, date: DateTime.now())
+  ];
 
   List<Transaction> get _recentTransactions {
     return _userTransActions.where((element) {
@@ -61,10 +63,57 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  List<Widget> _buildLandScapeContent(MediaQueryData mediaQuery,
+      PreferredSizeWidget appBar, Widget transactionList) {
+    return [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'ChartBar',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          // use adaptive for platform choose
+          Switch.adaptive(
+              //activeColor: Theme.of(context).accentColor,
+              value: _checkChart,
+              onChanged: (val) {
+                setState(() {
+                  _checkChart = val;
+                });
+              }),
+        ],
+      ),
+      _checkChart
+          ? SizedBox(
+              height: (mediaQuery.size.height -
+                      appBar.preferredSize.height -
+                      mediaQuery.padding.top) *
+                  0.7,
+              child: Chart(recentTransactions: _recentTransactions))
+          : transactionList
+    ];
+  }
+
+  List<Widget> _buildPortraitContent(MediaQueryData mediaQuery,
+      PreferredSizeWidget appBar, Widget transactionList) {
+    return [
+      SizedBox(
+          height: (mediaQuery.size.height -
+                  appBar.preferredSize.height -
+                  mediaQuery.padding.top) *
+              0.3,
+          child: Chart(recentTransactions: _recentTransactions)),
+      transactionList
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
+
     final isLandScape = mediaQuery.orientation == Orientation.landscape;
+
     final PreferredSizeWidget appBar = Platform.isIOS
         ? CupertinoNavigationBar(
             middle: const Text('Personal Expenses'),
@@ -84,6 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
               icon: const Icon(Icons.add, color: Colors.tealAccent),
             )
           ]);
+
     final transactionList = SizedBox(
       height: (mediaQuery.size.height -
               appBar.preferredSize.height -
@@ -93,48 +143,21 @@ class _MyHomePageState extends State<MyHomePage> {
           userTransActionsList: _userTransActions,
           deleteTransaction: _deleteTransaction),
     );
+
     final bodyPage = SafeArea(
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             if (isLandScape)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'ChartBar',
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  // use adaptive for platform choose
-                  Switch.adaptive(
-                      //activeColor: Theme.of(context).accentColor,
-                      value: _checkChart,
-                      onChanged: (val) {
-                        setState(() {
-                          _checkChart = val;
-                        });
-                      }),
-                ],
-              ),
+              ..._buildLandScapeContent(mediaQuery, appBar, transactionList),
             if (!isLandScape)
-              ChartView(
-                  appBar: appBar as AppBar,
-                  recentTransactions: _recentTransactions,
-                  height: 0.3),
-            if (!isLandScape) transactionList,
-            if (isLandScape)
-              _checkChart
-                  ? ChartView(
-                      appBar: appBar as AppBar,
-                      recentTransactions: _recentTransactions,
-                      height: 0.7,
-                    )
-                  : transactionList,
+              ..._buildPortraitContent(mediaQuery, appBar, transactionList),
           ],
         ),
       ),
     );
+
     return Platform.isIOS
         ? CupertinoPageScaffold(
             navigationBar: appBar as ObstructingPreferredSizeWidget,
@@ -151,28 +174,5 @@ class _MyHomePageState extends State<MyHomePage> {
                     onPressed: () => _startAddTransaction(context),
                     child: const Icon(Icons.add),
                   ));
-  }
-}
-
-class ChartView extends StatelessWidget {
-  const ChartView(
-      {Key? key,
-      required this.appBar,
-      required List<Transaction> recentTransactions,
-      required this.height})
-      : _recentTransactions = recentTransactions,
-        super(key: key);
-  final AppBar appBar;
-  final List<Transaction> _recentTransactions;
-  final double height;
-  @override
-  Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
-    return SizedBox(
-        height: (mediaQuery.size.height -
-                appBar.preferredSize.height -
-                mediaQuery.padding.top) *
-            height,
-        child: Chart(recentTransactions: _recentTransactions));
   }
 }
