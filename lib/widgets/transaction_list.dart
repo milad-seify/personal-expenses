@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import '../models/transaction.dart';
@@ -38,7 +40,6 @@ class TransactionList extends StatelessWidget {
             child: Scrollbar(
               controller: _firstController,
               thickness: 5.0,
-              // thumbVisibility: true,
               child: ListView.builder(
                 controller: _firstController,
                 //reverse: true,

@@ -15,10 +15,33 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    super.initState();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print(state);
+    super.didChangeAppLifecycleState(state);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
   bool _checkChart = false;
   final List<Transaction> _userTransActions = [
-    Transaction(id: 'id', title: 'title', amount: 5, date: DateTime.now())
+    Transaction(id: 'id', title: 'title', amount: 5, date: DateTime.now()),
+    Transaction(id: 'id2', title: 'title2', amount: 5, date: DateTime.now()),
+    Transaction(id: 'id3', title: 'title3', amount: 5, date: DateTime.now()),
+    Transaction(id: 'id4', title: 'title4', amount: 5, date: DateTime.now()),
+    Transaction(id: 'id6', title: 'title5', amount: 5, date: DateTime.now()),
+    Transaction(id: 'id6', title: 'title6', amount: 5, date: DateTime.now())
   ];
 
   List<Transaction> get _recentTransactions {
@@ -153,6 +176,12 @@ class _MyHomePageState extends State<MyHomePage> {
               ..._buildLandScapeContent(mediaQuery, appBar, transactionList),
             if (!isLandScape)
               ..._buildPortraitContent(mediaQuery, appBar, transactionList),
+            const Center(
+              child: DecoratedBox(
+                decoration: BoxDecoration(color: Colors.amber),
+                child: Text('this is a test'),
+              ),
+            ),
           ],
         ),
       ),

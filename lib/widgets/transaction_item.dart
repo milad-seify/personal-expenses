@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -30,6 +32,7 @@ class TransactionItem extends StatelessWidget {
         leading: Container(
           padding: const EdgeInsets.all(10.0),
           decoration: BoxDecoration(
+            color: Colors.primaries[Random().nextInt(Colors.primaries.length)],
             //shape: BoxShape.c,
             borderRadius: BorderRadius.circular(10.0),
             border: Border.all(
@@ -40,7 +43,7 @@ class TransactionItem extends StatelessWidget {
           child: Text(
             '\$${userTransAction.amount < 100 ? userTransAction.amount.toStringAsFixed(2) : userTransAction.amount.toStringAsFixed(2).substring(0, 6)}',
             style: const TextStyle(
-                color: Colors.purpleAccent,
+                color: Colors.black,
                 fontWeight: FontWeight.bold,
                 fontSize: 17.0),
           ),
